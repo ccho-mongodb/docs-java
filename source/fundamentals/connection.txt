@@ -19,6 +19,9 @@ For information about authenticating with a MongoDB instance,
 see :doc:`Authentication </fundamentals/auth>`. To learn more about using
 the driver with the Java Naming and Directory Interface (JNDI), see
 :doc:`JNDI <fundamentals/connection/jndi>`. 
+To configure TLS/SSL security
+for connections to your MongoDB instance, see :doc:`TLS/SSL
+<fundamentals/connection/tls>`.
 
 .. _mongoclient:
 
@@ -43,7 +46,7 @@ usage limits, such as max connections, apply to individual
 .. _connection-uri:
 
 Connection String
---------------
+-----------------
 
 The **connection string** (also known as a **connection uri**) provides
 instructions on how to connect to a MongoDB deployment. The driver
