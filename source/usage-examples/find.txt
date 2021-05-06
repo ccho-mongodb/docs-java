@@ -8,9 +8,8 @@ Usage
 -----
 
 .. code-block:: java
-   :caption: find()
 
-   FindIterable results = myCollection.find(queryFilter);
+   myCollection.find(queryFilter);
 
 Description
 -----------
