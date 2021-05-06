@@ -1,40 +1,49 @@
 =======================
-Find Multiple Documents
+Find Matching Documents
 =======================
 
 .. default-domain:: mongodb
 
-You can query for multiple documents in a collection by calling the ``find()``
-method on a ``MongoCollection`` object. Pass a query filter to the
-``find()`` method to query for and return documents that match the filter in
-the collection. If you do not include a filter, MongoDB returns all the
-documents in the collection.
+Usage
+-----
 
-For more information on querying MongoDB with the Java driver, see our
-guide (TODO: link) to querying documents.
+.. code-block:: java
 
-You can also chain methods to the ``find()`` method such as ``sort()``
-(TODO: link) which organizes the matched documents in a specified order and
-``projection()`` (TODO: link) which configures the included fields in the
-return document.
+   FindIterable results = myCollection.find(queryFilter);
+   results.forEach(result -> System.out.println(result));
 
-The ``find()`` method returns an instance of ``FindIterable``, a class
-that offers several methods to access, organize, and traverse the results.
-``FindIterable`` also inherits methods from its parent class,
-``MongoIterable`` which implements the core Java interface ``Iterable``.
+Explanation
+-----------
 
-You can call the ``iterator()`` method on the ``MongoIterable`` which
-returns a ``MongoCursor`` instance that you can use to traverse the results.
-You can call methods on the ``MongoCursor`` such as ``hasNext()`` to check
-whether additional results exist, or ``next()`` to return the next document
-in the collection. If no documents match the query, calling ``hasNext()``
-returns ``false`` and therefore calling ``next()`` throws an exception.
+To retrieve documents from a MongoDB collection, use the ``find()`` method.
+You can specify search criteria called a **query filter** in your method call
+which determines whether to include a document in your set of results. A query
+filter contains field names paired with matching criteria called query
+operators. Query operators specify search criteria including field values
+or ranges of values, document structure, and Javascript expressions.
 
-If you call ``next()`` on the iterator either after it has returned the final
-result or when no results exist, it throws an exception of type
-``java.util.NoSuchElementException``. Always use ``hasNext()`` to check that
-additional results exist before every time you call ``next()``.
+MongoDB returns the documents matching your query filter using a **cursor**,
+a reference that lets you iterate through the retrieved documents in order.
+If no documents match your query filter, the cursor does not reference any
+documents. You can also specify a sort order and a specific subset of
+document fields. For more complex data retrieval operations, read our guide
+on aggregations.
 
+With the MongoDB Java Driver, retrieve documents by calling the ``find()``
+method on an instance of a ``MongoCollection``. You can specify your query
+filter in an instance of a ``Document`` which you can construct using the
+``Filters`` helpers or by using the constructor and methods it inherits
+from the Map interface to add criteria.
+
+You can chain the ``sort()`` method to the ``find()`` method to set a sort
+order for the returned documents. You can also chain the ``projection()``
+method to specify which fields to include in the returned documents.
+
+The ``find()`` method returns an instance of ``FindIterable``. You can
+retrieve the ordered results from the ``FindIterable`` instance by calling
+the ``forEach()`` method. You can retrieve a ``MongoCursor`` instance by
+calling the ``iterator()`` method on which you can iterate using ``hasNext()``
+to check for additional results and ``next()`` to advance the cursor.
 
 Example
 -------
@@ -59,14 +68,19 @@ the ``movies`` collection. It uses the following objects and methods:
 
 .. note::
 
-   If you are using the **legacy API**, see the :doc:`FAQ </faq>` to determine 
+   If you are using the **legacy API**, see the :doc:`FAQ </faq>` to determine
    what changes you need to make to this code example.
 
-For additional information on the classes and methods mentioned on this
-page, see the following API documentation:
+
+.. literalinclude:: /includes/usage-examples/code-snippets/Find.java
+   :language: java
+
+For more information on the classes and methods mentioned, see the following
+API reference documentation:
 
 - :java-sync-api:`FindIterable <com/mongodb/client/FindIterable.html>`
 - :java-sync-api:`MongoIterable <com/mongodb/client/MongoIterable.html>`
 - :java-sync-api:`MongoCursor <com/mongodb/client/MongoCursor.html>`
 - :java-sync-api:`find() <com/mongodb/client/MongoCollection.html#find()>`
+- ...
 
