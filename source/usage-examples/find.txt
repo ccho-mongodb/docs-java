@@ -8,19 +8,20 @@ Usage
 -----
 
 .. code-block:: java
+   :caption: find()
 
    FindIterable results = myCollection.find(queryFilter);
-   results.forEach(result -> System.out.println(result));
 
-Explanation
+Description
 -----------
 
 To retrieve documents from a MongoDB collection, use the ``find()`` method.
+
 You can specify search criteria called a **query filter** in your method call
 which determines whether to include a document in your set of results. A query
-filter contains field names paired with matching criteria called query
-operators. Query operators specify search criteria including field values
-or ranges of values, document structure, and Javascript expressions.
+filter contains field names paired with matching criteria called 
+**query operators**. Query operators specify search criteria including field 
+values or ranges of values, document structure, and Javascript expressions.
 
 MongoDB returns the documents matching your query filter using a **cursor**,
 a reference that lets you iterate through the retrieved documents in order.
@@ -29,11 +30,11 @@ documents. You can also specify a sort order and a specific subset of
 document fields. For more complex data retrieval operations, read our guide
 on aggregations.
 
-With the MongoDB Java Driver, retrieve documents by calling the ``find()``
-method on an instance of a ``MongoCollection``. You can specify your query
-filter in an instance of a ``Document`` which you can construct using the
-``Filters`` helpers or by using the constructor and methods it inherits
-from the Map interface to add criteria.
+With the MongoDB Java Driver, you can retrieve documents by calling the 
+``find()`` method on an instance of a ``MongoCollection``. You can specify 
+your query filter in an instance of a ``Document`` which you can construct 
+using the ``Filters`` helpers or by using the constructor and methods it 
+inherits from the ``Map`` interface to add criteria.
 
 You can chain the ``sort()`` method to the ``find()`` method to set a sort
 order for the returned documents. You can also chain the ``projection()``
@@ -48,14 +49,16 @@ to check for additional results and ``next()`` to advance the cursor.
 Example
 -------
 
-The following snippet finds and prints all documents that match a query on
-the ``movies`` collection. It uses the following objects and methods:
+The following snippet finds and prints all documents that match a query
+filter on the ``movies`` collection. It uses the following objects and 
+methods:
 
 - A **query filter** that is passed in the ``find()`` method. The ``lt()``
-  filter matches only movies with a runtime of less than 15 minutes.
+  method from the ``Filter`` helper package  matches only movies with a 
+  runtime of less than 15 minutes.
 
-- A **sort** that organizes returned documents in descending order by
-  title ("Z" before "A").
+- A **sort** that organizes returned documents by title in descending order
+  ("Z" before "A").
 
 - A **projection** that includes the objects in the ``title`` and ``imdb``
   fields and excludes the ``_id`` field using the helper method
@@ -70,7 +73,6 @@ the ``movies`` collection. It uses the following objects and methods:
 
    If you are using the **legacy API**, see the :doc:`FAQ </faq>` to determine
    what changes you need to make to this code example.
-
 
 .. literalinclude:: /includes/usage-examples/code-snippets/Find.java
    :language: java
